@@ -307,7 +307,7 @@ const LANGS = [
   { code:"it-IT", label:"Italiano", flag:"🇮🇹" },
 ];
 
-let apiKey = "";
+let apiKey = localStorage.getItem("anthropic_api_key") || "";
 let srcIdx = 0, tgtIdx = 1;
 let listening = false;
 let autoSpeak = true;
@@ -319,6 +319,15 @@ let translateTimer = null;
 let currentTranslation = "";
 let history = [];
 
+window.addEventListener("DOMContentLoaded", () => {
+  if (apiKey) {
+    document.getElementById("setup").style.display = "none";
+    document.getElementById("main").classList.add("show");
+    renderPills();
+    updateLabels();
+  }
+});
+
 // ── Setup ─────────────────────────────────────────────
 function startApp() {
   const val = document.getElementById("apiInput").value.trim();
@@ -327,6 +336,7 @@ function startApp() {
     return;
   }
   apiKey = val;
+  localStorage.setItem("anthropic_api_key", val);
   document.getElementById("setup").style.display = "none";
   document.getElementById("main").classList.add("show");
   renderPills();
