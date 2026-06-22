@@ -416,6 +416,7 @@ async function translate(text) {
       method: "POST",
       headers: { "Content-Type": "application/json", 
                  "anthropic-dangerous-direct-browser-access": "true",
+                 "x-api-key": apiKey,
                },
       body: JSON.stringify({
         model: "claude-sonnet-4-6",
